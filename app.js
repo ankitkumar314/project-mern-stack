@@ -8,6 +8,8 @@ const multer = require('multer');
 const feedRoutes = require('./routes/feed');
 const authRoutes = require('./routes/auth');
 
+const post=require('./models/post')
+
 const app = express();
 
 const fileStorage = multer.diskStorage({
@@ -15,7 +17,7 @@ const fileStorage = multer.diskStorage({
     cb(null, 'images');
   },
   filename: (req, file, cb) => {
-    cb(null, new Date().toISOString() + '-' + file.originalname);
+    cb(null, new Date().toISOString()+ '-' + file.originalname);
   }
 });
 
@@ -48,6 +50,11 @@ app.use((req, res, next) => {
   next();
 });
 
+
+
+
+
+
 app.use('/feed', feedRoutes);
 app.use('/auth', authRoutes);
 
@@ -61,9 +68,8 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(
-    'mongodb://127.0.0.1/byteshield?retryWrites=true',
-    {useNewUrlParser: true, useUnifiedTopology: true}
-
+    "mongodb+srv://1ms20ee010:VRv5HgeL8RZZo8Hs@lawplatform.f5pxrtq.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp",
+    { useUnifiedTopology: true , useNewUrlParser: true }
   )
   .then(result => {
     app.listen(8080);
